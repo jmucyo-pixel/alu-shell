@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# This groups visitors by IP and HTTP status code
+# group visitors by IP and HTTPS status code 
 
-awk '{print $1, $9}' apache_access.log | sort | unique -c | sort -nr
+awk '{print $1, $9}' apache_access.log | sort | uniq -c | sort -n -r 
