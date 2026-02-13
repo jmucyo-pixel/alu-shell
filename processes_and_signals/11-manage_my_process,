@@ -1,25 +1,22 @@
 #!/usr/bin/env bash
 # Manages the manage_my_process daemon
 
-PID_FILE="/var/run/my_process.pid"
-PROCESS="./manage_my_process"
-
 case "$1" in
     start)
-        $PROCESS &
-        echo $! > "$PID_FILE"
+        ./manage_my_process &
+        echo $! > /var/run/my_process.pid
         echo "manage_my_process started"
         ;;
     stop)
-        kill "$(cat "$PID_FILE")"
-        rm -f "$PID_FILE"
+        kill "$(cat /var/run/my_process.pid)"
+        rm -f /var/run/my_process.pid
         echo "manage_my_process stopped"
         ;;
     restart)
-        kill "$(cat "$PID_FILE")"
-        rm -f "$PID_FILE"
-        $PROCESS &
-        echo $! > "$PID_FILE"
+        kill "$(cat /var/run/my_process.pid)"
+        rm -f /var/run/my_process.pid
+        ./manage_my_process &
+        echo $! > /var/run/my_process.pid
         echo "manage_my_process restarted"
         ;;
     *)
